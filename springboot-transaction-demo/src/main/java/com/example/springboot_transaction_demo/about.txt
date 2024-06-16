@@ -1,0 +1,13 @@
+
+Because in the OrderServiceImpl we have a condition when trying to save an order, if payment is not "DEBIT", then the payment of that order won't be saved
+This leads to consistency in the database, because the order will be saved, but the payment of that order will not
+
+In order to deal with this inconsistency we will use spring transaction with @Transactional
+
+ @SneakyThrows is used on the same method we use @Transactional because @Transactional requires some criteria:
+ -The method to be made public
+ -It doesn't support Exceptions being thrown in that method
+
+ So initially, I tried to use @Transactional with throw new PaymentException inside the method, but the functionality of @Transactional was not working
+ 
+
